@@ -8,6 +8,7 @@ import java.util.Map;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebSettings;
 import android.webkit.CookieManager;
+import android.os.Build;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
@@ -42,6 +43,9 @@ public class RNWebViewManager extends SimpleViewManager<RNWebView> {
     public RNWebView createViewInstance(ThemedReactContext context) {
         RNWebView rnwv = new RNWebView(this, context);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {            
+            rnwv.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         // Fixes broken full-screen modals/galleries due to body
         // height being 0.
         rnwv.setLayoutParams(
@@ -50,6 +54,9 @@ public class RNWebViewManager extends SimpleViewManager<RNWebView> {
         CookieManager.getInstance().setAcceptCookie(true); // add default cookie support
         CookieManager.getInstance().setAcceptFileSchemeCookies(true); // add default cookie support
 
+        rnwv.getSettings().setJavaScriptEnabled(true);
+        rnwv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        
         return rnwv;
     }
 
