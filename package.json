@@ -1,11 +1,53 @@
 {
-  "name": "react-native-webview-android",
-  "version": "1.1.10",
-  "description": "Simple React Native Android module to use Android's WebView inside your app",
-  "main": "index",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_args": [
+    [
+      "https://github.com/ljspace/react-native-webview-android",
+      "/Users/linjun/work/code/mobile/appstore43/appstore"
+    ]
+  ],
+  "_from": "git+https://github.com/ljspace/react-native-webview-android.git",
+  "_id": "react-native-webview-android@1.1.10",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/react-native-webview-android",
+  "_phantomChildren": {},
+  "_requested": {
+    "hosted": {
+      "directUrl": "https://raw.githubusercontent.com/ljspace/react-native-webview-android/master/package.json",
+      "gitUrl": "git://github.com/ljspace/react-native-webview-android.git",
+      "httpsUrl": "git+https://github.com/ljspace/react-native-webview-android.git",
+      "shortcut": "github:ljspace/react-native-webview-android",
+      "ssh": "git@github.com:ljspace/react-native-webview-android.git",
+      "sshUrl": "git+ssh://git@github.com/ljspace/react-native-webview-android.git",
+      "type": "github"
+    },
+    "name": null,
+    "raw": "https://github.com/ljspace/react-native-webview-android",
+    "rawSpec": "https://github.com/ljspace/react-native-webview-android",
+    "scope": null,
+    "spec": "git+https://github.com/ljspace/react-native-webview-android.git",
+    "type": "hosted"
   },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/ljspace/react-native-webview-android.git#2831a3dbc13918ce8098f8ed97de241841d4e9db",
+  "_shasum": "f9cb9fe818fb02ac5165200aae30dcb0b91a5f13",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/ljspace/react-native-webview-android",
+  "_where": "/Users/linjun/work/code/mobile/appstore43/appstore",
+  "author": {
+    "email": "contato@lucasferreira.com",
+    "name": "Lucas Ferreira"
+  },
+  "bugs": {
+    "url": "https://github.com/lucasferreira/react-native-webview-android/issues"
+  },
+  "dependencies": {},
+  "description": "Simple React Native Android module to use Android's WebView inside your app",
+  "devDependencies": {},
+  "gitHead": "2831a3dbc13918ce8098f8ed97de241841d4e9db",
+  "homepage": "https://github.com/lucasferreira/react-native-webview-android#readme",
   "keywords": [
     "react",
     "react-native",
@@ -21,11 +63,21 @@
     "files",
     "input"
   ],
-  "author": "Lucas Ferreira <contato@lucasferreira.com>",
   "license": "MIT",
-  "repository": "https://github.com/lucasferreira/react-native-webview-android",
-  "bugs": "https://github.com/lucasferreira/react-native-webview-android/issues",
+  "main": "index",
+  "name": "react-native-webview-android",
+  "optionalDependencies": {},
   "peerDependencies": {
     "react-native": ">=0.26"
-  }
+  },
+  "readme": "# react-native-webview-android\nSimple React Native Android module to use Android's WebView inside your app (with experimental html file input support to handle file uploads in forms).\n\n[![npm version](http://img.shields.io/npm/v/react-native-webview-android.svg?style=flat-square)](https://npmjs.org/package/react-native-webview-android \"View this project on npm\")\n[![npm downloads](http://img.shields.io/npm/dm/react-native-webview-android.svg?style=flat-square)](https://npmjs.org/package/react-native-webview-android \"View this project on npm\")\n[![npm licence](http://img.shields.io/npm/l/react-native-webview-android.svg?style=flat-square)](https://npmjs.org/package/react-native-webview-android \"View this project on npm\")\n\n### Installation\n\n```bash\nnpm install react-native-webview-android --save\n```\n\n### Add it to your android project\n\n* In `android/setting.gradle`\n\n```gradle\n...\ninclude ':RNWebView', ':app'\nproject(':RNWebView').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview-android/android')\n```\n\n* In `android/app/build.gradle`\n\n```gradle\n...\ndependencies {\n  ...\n  compile project(':RNWebView')\n}\n```\n\n* Register Module - RN >= 0.29 (in MainApplication.java)\n\n```java\nimport com.burnweb.rnwebview.RNWebViewPackage;  // <--- import\n\npublic class MainApplication extends Application implements ReactApplication {\n  ......\n\n  @Override\n  protected List<ReactPackage> getPackages() {\n    return Arrays.<ReactPackage>asList(\n        new MainReactPackage(),\n        new RNWebViewPackage()); // <------ add this line to your MainApplication class\n  }\n\n  ......\n\n}\n```\n\nIf you need to see the install instructions for older React Native versions [look here](https://github.com/lucasferreira/react-native-webview-android/blob/react-native-older/README.md).\n\n\n## Example\n```javascript\nvar React = require('react-native');\nvar { StyleSheet } = React;\n\nvar WebViewAndroid = require('react-native-webview-android');\n\nvar SITE_URL = \"https://www.google.com\";\n\nvar WebViewAndroidExample = React.createClass({\n    getInitialState: function() {\n      return {\n        url: SITE_URL,\n        // OR\n        // you can use a source object like React Native Webview.\n        // source {uri: string, method: string, headers: object, body: string}, {html: string, baseUrl: string}\n        // Loads static html or a uri (with optional headers) in the WebView. <Just like React Native's version>\n        // source: {\n        //   uri: SITE_URL,\n        //   headers: {\n        //     ...\n        //   },\n        // },\n        status: 'No Page Loaded',\n        backButtonEnabled: false,\n        forwardButtonEnabled: false,\n        loading: true,\n      };\n    },\n    goBack: function() {\n      this.refs.webViewAndroidSample.goBack(); // you can use this callbacks to control webview\n    },\n    goForward: function() {\n      this.refs.webViewAndroidSample.goForward();\n    },\n    reload: function() {\n      this.refs.webViewAndroidSample.reload();\n    },\n    onNavigationStateChange: function(event) {\n      console.log(event);\n\n      this.setState({\n        backButtonEnabled: event.canGoBack,\n        forwardButtonEnabled: event.canGoForward,\n        url: event.url,\n        status: event.title,\n        loading: event.loading\n      });\n    },\n    render: function() {\n      return (\n        <WebViewAndroid\n          ref=\"webViewAndroidSample\"\n          javaScriptEnabled={true}\n          geolocationEnabled={false}\n          builtInZoomControls={false}\n          onNavigationStateChange={this.onNavigationStateChange}\n          url={SITE_URL} // or use the source(object) attribute...\n          style={styles.containerWebView} />\n      );\n\n      // other attributes: source(object), html(string), htmlCharset(string), baseUrl(string), injectedJavaScript(string), disableCookies(bool), disablePlugins(bool), userAgent(string)\n    }\n});\n\nvar styles = StyleSheet.create({\n  containerWebView: {\n    flex: 1,\n  }\n});\n```\n\n## Note about HTML file input (files upload)\n\nThis module implements an experimental support to handle file input in HTML forms for upload files. It was tested in some Android versions 4.1+, but it's possible that some device won't work OK with that *new* feature.\n\n![File input demo](http://i.imgur.com/5Fbaxfn.gif)\n\n## Tips for Video (HTML5) inside WebView\n\nTo work with some html5 video player inside your Webview, I recommend you to set the android:hardwareAccelerated=\"true\" in your AndroidManifest.xml file.\n\nMore info here: http://stackoverflow.com/questions/17259636/enabling-html5-video-playback-in-android-webview\n\n## License\nMIT\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasferreira/react-native-webview-android.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.1.10"
 }
